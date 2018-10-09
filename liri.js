@@ -3,11 +3,14 @@ var Spotify = require("node-spotify-api");
 var request = require("request");
 var moment = require("moment");
 var keys = require("./keys");
-var spotify = new Spotify(keys.spotify);
 var fs = require("fs");
+
+var spotify = new Spotify(keys.spotify);
 
 var typeOfRequest = process.argv[2];
 var requestSpecific = process.argv[3];
+
+console.log("If there is an error the first time running the program, it'll likely be fixed by trying again...")
 
 if (typeOfRequest === "do-what-it-says") {
   var whatItSaysArray = [];
@@ -26,6 +29,7 @@ if (typeOfRequest === "do-what-it-says") {
 // Inserted delay to fix issues with .then not working and variables above not being set quickly enough...
 setTimeout(function() {
 if (typeOfRequest === "movie-this") {
+  console.log("Movie selected")
   var queryUrl =
     "http://www.omdbapi.com/?t=" +
     requestSpecific +
@@ -37,7 +41,9 @@ if (typeOfRequest === "movie-this") {
     // Do stuff here
   });
 } else if (typeOfRequest === "spotify-this-song") {
+  console.log("Spotify selected")
 } else if (typeOfRequest === "concert-this") {
+  console.log("Concert selected")
   var queryUrl =
     "https://rest.bandsintown.com/artists/" +
     requestSpecific +
@@ -55,4 +61,4 @@ if (typeOfRequest === "movie-this") {
       " is NOT an accepted argument. \nTry 'concert-this', 'movie-this', 'spotify-this', or 'do-what-it-says'"
   );
 }
-}, 100)
+}, 60)
