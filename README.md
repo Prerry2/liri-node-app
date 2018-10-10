@@ -6,7 +6,8 @@
 
 ### This project was made to test the use of node to handle user input without the need for browsers.
 
-## Please note that use of this product requires the generation of your own .env file in the folder, which contains an API key and secret for Spotify.  For information on format, please refer to the sample image: ![.env.png](./assets/images/example.env.png)
+## Please note that use of this product requires the generation of your own .env file in the folder, which contains an API key and secret for Spotify.  For information on format, please refer to the sample image: 
+![.env.png](./assets/images/example.env.png)
 
 ## How to Use:
 
