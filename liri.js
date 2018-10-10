@@ -13,27 +13,6 @@ var requestSpecific = process.argv[3];
 console.log(
   "If there is an error the first time running the program, it'll likely be fixed by trying again... #computers"
 );
-if (typeOfRequest === "do-what-it-says") {
-  console.log("Just DO IT! Don't let your dreams be dreams!");
-  var whatItSaysArray = [];
-  fs.readFile("random.txt", "ascii", function(err, data) {
-    if (err) {
-      return console.log(err);
-    }
-    whatItSaysArray = data.split(",");
-  });
-  setTimeout(function() {
-    // console.log(whatItSaysArray);
-    typeOfRequest = whatItSaysArray[0];
-    requestSpecific = whatItSaysArray[1];
-    // console.log(typeOfRequest + " " + requestSpecific);
-  }, 50);
-  setTimeout(ifBlock(), 60);
-  // Inserted delay to fix issues with .then not working and variables above not being set quickly enough...
-  // No, I have no idea why the two delays are BOTH necessary for this whole thing to work...
-} else {
-  ifBlock()
-}
 
 var movieFn = function() {
   if (!requestSpecific) {
@@ -78,9 +57,8 @@ var concertFn = function () {var queryUrl =
   });
 } 
 var spotifyFn = function () {
-  
+  // Code goes here
 }
-
 
 var ifBlock = function() {
   if (typeOfRequest === "movie-this") {
@@ -99,4 +77,26 @@ var ifBlock = function() {
       " is NOT an accepted argument. \nTry 'concert-this', 'movie-this', 'spotify-this', or 'do-what-it-says'"
   );
   }
+}
+
+if (typeOfRequest === "do-what-it-says") {
+  console.log("Just DO IT! Don't let your dreams be dreams!");
+  var whatItSaysArray = [];
+  fs.readFile("random.txt", "ascii", function(err, data) {
+    if (err) {
+      return console.log(err);
+    }
+    whatItSaysArray = data.split(",");
+  });
+  setTimeout(function() {
+    // console.log(whatItSaysArray);
+    typeOfRequest = whatItSaysArray[0];
+    requestSpecific = whatItSaysArray[1];
+    // console.log(typeOfRequest + " " + requestSpecific);
+  }, 50);
+  setTimeout(ifBlock(), 60);
+  // Inserted delay to fix issues with .then not working and variables above not being set quickly enough...
+  // No, I have no idea why the two delays are BOTH necessary for this whole thing to work...
+} else {
+  ifBlock()
 }
