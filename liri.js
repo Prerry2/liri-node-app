@@ -44,6 +44,10 @@ var movieFn = function() {
   });
 };
 var concertFn = function() {
+  if (!requestSpecific) {
+    console.log("Error: No band inputted!")
+    return
+  }
   var queryUrl =
     "https://rest.bandsintown.com/artists/" +
     requestSpecific +
