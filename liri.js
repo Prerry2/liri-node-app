@@ -10,8 +10,11 @@ var spotify = new Spotify(keys.spotify);
 var typeOfRequest = process.argv[2];
 var requestSpecific = process.argv[3];
 
+/* console.log(
+  "\nIf there is an error the first time running the program, it'll likely be fixed by trying again... #computers"
+); */
 console.log(
-  "If there is an error the first time running the program, it'll likely be fixed by trying again... #computers"
+  "\nPlease remember, if you need to use spaces in an argument, it must be enclosed in quote marks or half quote marks.\n"
 );
 
 var movieFn = function() {
@@ -28,18 +31,20 @@ var movieFn = function() {
     }
     var jsonData = JSON.parse(body);
     var movieData = [
-      "Title: " + jsonData[0].Title,
-      "Year: " + jsonData[0].Year,
-      "IMDB Rating: " + jsonData[0].imdbRating,
-      "Rotten Tomatoes Rating: " + jsonData[0].Ratings[1].Value,
-      "Country of Production: " + jsonData[0].Country,
-      "Language: " + jsonData[0].Language,
-      "Plot: " + jsonData[0].Plot,
-      "Actors: " + jsonData[0].Actors
+      "Title: " + jsonData.Title,
+      "Year: " + jsonData.Year,
+      "IMDB Rating: " + jsonData.imdbRating,
+      "Rotten Tomatoes Rating: " + jsonData.Ratings.Value,
+      "Country of Production: " + jsonData.Country,
+      "Language: " + jsonData.Language,
+      "Plot: " + jsonData.Plot,
+      "Actors: " + jsonData.Actors
     ].join("\n\n");
     console.log(movieData);
-  });}
-var concertFn = function () {var queryUrl =
+  });
+};
+var concertFn = function() {
+  var queryUrl =
     "https://rest.bandsintown.com/artists/" +
     requestSpecific +
     "/events?app_id=codingbootcamp";
@@ -55,29 +60,30 @@ var concertFn = function () {var queryUrl =
     ].join("\n\n");
     console.log(concertData);
   });
-} 
-var spotifyFn = function () {
+};
+var spotifyFn = function() {
   // Code goes here
-}
+};
 
-var ifBlock = function() {
-  if (typeOfRequest === "movie-this") {
+var whatItSaysArray = [];
+var ifBlock = function(type) {
+  if (type === "movie-this") {
     console.log("Movie selected");
-    movieFn()
-  } else if (typeOfRequest === "spotify-this-song") {
+    movieFn();
+  } else if (type === "spotify-this-song") {
     console.log("Spotify selected");
-    spotifyFn()
-  } else if (typeOfRequest === "concert-this") {
+    spotifyFn();
+  } else if (type === "concert-this") {
     console.log("Concert selected");
-    concertFn()
+    concertFn();
   } else {
-  console.log(
-    "Syntax error: typeOfRequest " +
-      typeOfRequest +
-      " is NOT an accepted argument. \nTry 'concert-this', 'movie-this', 'spotify-this', or 'do-what-it-says'"
-  );
+    console.log(
+      "Syntax error: typeOfRequest " +
+        typeOfRequest +
+        " is NOT an accepted argument. \nTry 'concert-this', 'movie-this', 'spotify-this', or 'do-what-it-says'"
+    );
   }
-}
+};
 
 if (typeOfRequest === "do-what-it-says") {
   console.log("Just DO IT! Don't let your dreams be dreams!");
@@ -87,16 +93,12 @@ if (typeOfRequest === "do-what-it-says") {
       return console.log(err);
     }
     whatItSaysArray = data.split(",");
+    requestSpecific = whatItSaysArray[1]
+    ifBlock(whatItSaysArray[0])
   });
-  setTimeout(function() {
-    // console.log(whatItSaysArray);
-    typeOfRequest = whatItSaysArray[0];
-    requestSpecific = whatItSaysArray[1];
-    // console.log(typeOfRequest + " " + requestSpecific);
-  }, 50);
-  setTimeout(ifBlock(), 60);
+  
   // Inserted delay to fix issues with .then not working and variables above not being set quickly enough...
   // No, I have no idea why the two delays are BOTH necessary for this whole thing to work...
 } else {
-  ifBlock()
+  ifBlock(typeOfRequest);
 }
