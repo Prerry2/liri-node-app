@@ -62,7 +62,22 @@ var concertFn = function() {
   });
 };
 var spotifyFn = function() {
-  // Code goes here
+  if (!requestSpecific) {
+    requestSpecific = "The Sign";
+  }
+  
+  spotify.search({ type: 'track', query: requestSpecific, limit: 1}, function(err, data) {
+    if (err) {
+      return console.log('Error occurred: ' + err);
+    }
+    var songInfo = [
+      "Artist: " + data.tracks.items[0].album.artists[0].name,
+      "Song: " + data.tracks.items[0].name,
+      "Album: " + data.tracks.items[0].album.name,
+      "URL: " + data.tracks.items[0].external_urls.spotify
+    ].join("\n\n");
+  console.log(songInfo); 
+  });
 };
 
 var whatItSaysArray = [];
