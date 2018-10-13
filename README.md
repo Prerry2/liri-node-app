@@ -5,6 +5,10 @@
 
 ### This project was made to test the use of node to handle user input without the need for browsers.
 
+# Some Assembly Required
+
+## Please, please just use npm i before using this application.  You already know this is necessary, so don't blame me if you don't generate a node_modules folder before runtime
+
 ## Please note that use of this product requires the generation of your own .env file in the folder, which contains an API key and secret for Spotify.  For information on format, please refer to the sample image: ![.env.png](./assets/images/example.env.png)
 
 ## How to Use:
